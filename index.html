@@ -4,43 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Encuesta QR BBVA - BaldeCash</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Asap:wght@400;500;600;700&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f2f5; color: #1a1a2e; min-height: 100vh; }
+        body { font-family: 'Asap', system-ui, sans-serif; background: #f0f2f5; color: #232323; min-height: 100vh; }
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #004481, #0066b3); color: white; padding: 32px 24px; border-radius: 16px; margin-bottom: 24px; }
-        .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 12px; text-align: center; }
+        .header { background: linear-gradient(135deg, #4654cd, #31359C); color: white; padding: 32px 24px; border-radius: 16px; margin-bottom: 24px; }
+        .header .logo { display: block; margin: 0 auto 16px; height: 40px; }
+        .header h1 { font-family: 'Baloo 2', cursive; font-size: 22px; font-weight: 800; margin-bottom: 12px; text-align: center; }
         .header p { font-size: 14px; opacity: 0.9; line-height: 1.6; margin-bottom: 8px; text-align: center; }
         .header .time { font-size: 12px; opacity: 0.6; margin-top: 12px; text-align: center; }
         .card { background: white; border-radius: 12px; padding: 24px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-        .card h2 { font-size: 16px; font-weight: 600; color: #004481; margin-bottom: 6px; display: flex; align-items: flex-start; gap: 8px; }
-        .required { color: #e8590c; font-size: 12px; }
+        .card h2 { font-family: 'Asap', sans-serif; font-size: 16px; font-weight: 600; color: #4654cd; margin-bottom: 6px; display: flex; align-items: flex-start; gap: 8px; }
+        .required { color: #BF3A3C; font-size: 12px; }
         .card p.desc { font-size: 13px; color: #666; margin-bottom: 16px; line-height: 1.4; }
-        .q-number { display: inline-flex; align-items: center; justify-content: center; min-width: 24px; height: 24px; background: #004481; color: white; border-radius: 50%; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+        .q-number { display: inline-flex; align-items: center; justify-content: center; min-width: 24px; height: 24px; background: #4654cd; color: white; border-radius: 50%; font-size: 12px; font-weight: 700; flex-shrink: 0; }
         .radio-group { display: flex; gap: 12px; margin-top: 8px; }
         .radio-option { flex: 1; }
         .radio-option input { display: none; }
         .radio-option label { display: block; padding: 14px; text-align: center; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-        .radio-option input:checked + label { border-color: #004481; background: #e3f0ff; color: #004481; }
-        .radio-option label:hover { border-color: #90caf9; }
+        .radio-option input:checked + label { border-color: #4654cd; background: #D6DCED; color: #31359C; }
+        .radio-option label:hover { border-color: #98A9DF; }
         textarea { width: 100%; min-height: 80px; padding: 14px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 14px; font-family: inherit; resize: vertical; transition: border-color 0.2s; }
-        textarea:focus { outline: none; border-color: #004481; }
+        textarea:focus { outline: none; border-color: #4654cd; }
         .likert-container { margin-top: 12px; }
         .likert-labels { display: flex; justify-content: space-between; font-size: 11px; color: #888; margin-bottom: 8px; padding: 0 4px; }
         .likert-options { display: flex; gap: 8px; }
         .likert-options .radio-option { flex: 1; }
         .likert-options .radio-option label { padding: 12px 4px; font-size: 16px; }
         .section-divider { text-align: center; color: #aaa; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin: 8px 0 16px; }
-        .submit-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, #004481, #0066b3); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; transition: transform 0.1s, box-shadow 0.2s; box-shadow: 0 4px 12px rgba(0,68,129,0.3); }
-        .submit-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,68,129,0.4); }
+        .submit-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, #03dbd0, #02C3BA); color: #232323; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; transition: transform 0.1s, box-shadow 0.2s; box-shadow: 0 4px 12px rgba(3,219,208,0.3); }
+        .submit-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(3,219,208,0.4); }
         .submit-btn:active { transform: translateY(0); }
         .progress { height: 4px; background: #e0e0e0; border-radius: 2px; margin-bottom: 24px; overflow: hidden; }
-        .progress-bar { height: 100%; background: linear-gradient(90deg, #004481, #28a745); border-radius: 2px; transition: width 0.3s; width: 0%; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, #4654cd, #03dbd0); border-radius: 2px; transition: width 0.3s; width: 0%; }
         .footer { text-align: center; padding: 20px; font-size: 11px; color: #aaa; }
+        .footer img { height: 24px; margin-bottom: 6px; display: block; margin: 0 auto 6px; }
         .hidden { display: none; }
         .thanks { display: none; text-align: center; padding: 48px 32px; }
-        .thanks .check { width: 80px; height: 80px; background: #d4edda; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
-        .thanks h2 { font-size: 24px; color: #1a1a2e; margin-bottom: 12px; }
+        .thanks .check { width: 80px; height: 80px; background: #DEFBF9; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+        .thanks h2 { font-family: 'Baloo 2', cursive; font-size: 24px; color: #232323; margin-bottom: 12px; }
         .thanks p { font-size: 15px; color: #666; line-height: 1.6; }
         @media (max-width: 480px) {
             .container { padding: 12px; }
@@ -54,6 +58,7 @@
 <body>
     <div class="container">
         <div class="header">
+            <img src="https://raw.githubusercontent.com/miguelbaldecash/Encuesta_qr_BBVA/main/logo-baldecash.png" alt="BaldeCash" class="logo">
             <h1>Tu opini&oacute;n sobre nuestra nueva forma de pago</h1>
             <p>Encuesta sobre el nuevo m&eacute;todo de pago con QR BBVA</p>
             <div class="time">BaldeCash &bull; Junio 2026</div>
@@ -292,13 +297,16 @@
         <!-- Gracias -->
         <div class="thanks" id="thanksArea">
             <div class="check">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#28a745" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="40" height="40"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="#03dbd0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="40" height="40"><polyline points="20 6 9 17 4 12"></polyline></svg>
             </div>
             <h2>&iexcl;Gracias por tu respuesta!</h2>
             <p>Tu opini&oacute;n nos ayuda a mejorar la experiencia de pago para todos nuestros clientes. Puedes cerrar esta ventana.</p>
         </div>
 
-        <div class="footer">Tus respuestas son an&oacute;nimas &bull; BaldeCash 2026</div>
+        <div class="footer">
+            <img src="https://raw.githubusercontent.com/miguelbaldecash/Encuesta_qr_BBVA/main/logo-baldecash.png" alt="BaldeCash">
+            Tus respuestas son an&oacute;nimas &bull; 2026
+        </div>
     </div>
 
     <script>
