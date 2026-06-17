@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuesta QR BBVA - BaldeCash</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f2f5; color: #1a1a2e; min-height: 100vh; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #004481, #0066b3); color: white; padding: 32px 24px; border-radius: 16px; margin-bottom: 24px; }
+        .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 12px; text-align: center; }
+        .header p { font-size: 14px; opacity: 0.9; line-height: 1.6; margin-bottom: 8px; }
+        .header .time { font-size: 12px; opacity: 0.6; margin-top: 12px; text-align: center; }
+        .card { background: white; border-radius: 12px; padding: 24px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .card h2 { font-size: 16px; font-weight: 600; color: #004481; margin-bottom: 6px; display: flex; align-items: flex-start; gap: 8px; }
+        .required { color: #e8590c; font-size: 12px; }
+        .card p.desc { font-size: 13px; color: #666; margin-bottom: 16px; line-height: 1.4; }
+        .q-number { display: inline-flex; align-items: center; justify-content: center; min-width: 24px; height: 24px; background: #004481; color: white; border-radius: 50%; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+        .radio-group { display: flex; gap: 12px; margin-top: 8px; }
+        .radio-option { flex: 1; }
+        .radio-option input { display: none; }
+        .radio-option label { display: block; padding: 14px; text-align: center; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .radio-option input:checked + label { border-color: #004481; background: #e3f0ff; color: #004481; }
+        .radio-option label:hover { border-color: #90caf9; }
+        textarea { width: 100%; min-height: 80px; padding: 14px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 14px; font-family: inherit; resize: vertical; transition: border-color 0.2s; }
+        textarea:focus { outline: none; border-color: #004481; }
+        .likert-container { margin-top: 12px; }
+        .likert-labels { display: flex; justify-content: space-between; font-size: 11px; color: #888; margin-bottom: 8px; padding: 0 4px; }
+        .likert-options { display: flex; gap: 8px; }
+        .likert-options .radio-option { flex: 1; }
+        .likert-options .radio-option label { padding: 12px 4px; font-size: 16px; }
+        .section-divider { text-align: center; color: #aaa; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin: 8px 0 16px; }
+        .submit-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, #004481, #0066b3); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; transition: transform 0.1s, box-shadow 0.2s; box-shadow: 0 4px 12px rgba(0,68,129,0.3); }
+        .submit-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,68,129,0.4); }
+        .submit-btn:active { transform: translateY(0); }
+        .progress { height: 4px; background: #e0e0e0; border-radius: 2px; margin-bottom: 24px; overflow: hidden; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, #004481, #28a745); border-radius: 2px; transition: width 0.3s; width: 0%; }
+        .footer { text-align: center; padding: 20px; font-size: 11px; color: #aaa; }
+        .hidden { display: none; }
+        .thanks { display: none; text-align: center; padding: 48px 32px; }
+        .thanks .check { width: 80px; height: 80px; background: #d4edda; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+        .thanks h2 { font-size: 24px; color: #1a1a2e; margin-bottom: 12px; }
+        .thanks p { font-size: 15px; color: #666; line-height: 1.6; }
+        @media (max-width: 480px) {
+            .container { padding: 12px; }
+            .header { padding: 24px 16px; }
+            .card { padding: 20px 16px; }
+            .radio-group { flex-wrap: wrap; }
+            .radio-option { min-width: calc(50% - 6px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Tu opinion sobre nuestra nueva forma de pago</h1>
+            <p>Encuesta sobre el nuevo metodo de pago con QR BBVA</p>
+            <div class="time">BaldeCash &bull; Junio 2026</div>
+        </div>
+
+        <!-- Preambulo -->
+        <div id="introArea">
+            <div class="card" style="padding:28px;">
+                <p style="font-size:15px; color:#333; line-height:1.7; margin-bottom:16px;">Hola,</p>
+                <p style="font-size:15px; color:#333; line-height:1.7; margin-bottom:16px;">Este mes hemos lanzado una <strong>nueva forma de pagar tus cuotas: pago con QR de BBVA</strong>. Ahora puedes pagar escaneando un codigo QR directamente desde tu celular, sin necesidad de ir a un agente o usar otra aplicacion.</p>
+                <p style="font-size:15px; color:#333; line-height:1.7; margin-bottom:16px;">Vemos que <strong>aun no has usado este metodo de pago</strong> y nos gustaria conocer tu opinion para seguir mejorando el servicio que te ofrecemos.</p>
+                <p style="font-size:15px; color:#333; line-height:1.7; margin-bottom:24px;">Esta encuesta es <strong>anonima</strong> y toma menos de <strong>2 minutos</strong>. Tu respuesta es muy importante para nosotros.</p>
+                <button class="submit-btn" onclick="startSurvey()">Comenzar encuesta</button>
+            </div>
+        </div>
+
+        <div id="formArea" style="display:none;">
+        <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+            <!-- P1: Filtro -->
+            <div class="card" id="q1-card">
+                <h2><span class="q-number">1</span> Cuando entraste a pagar tu cuota, viste la opcion de pagar con QR BBVA? <span class="required">*</span></h2>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="q1_si" name="q1_vio_qr" value="Si, lo vi" onchange="handleQ1()">
+                        <label for="q1_si">Si, lo vi</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="q1_no" name="q1_vio_qr" value="No lo vi" onchange="handleQ1()">
+                        <label for="q1_no">No lo vi</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="q1_nosure" name="q1_vio_qr" value="No recuerdo" onchange="handleQ1()">
+                        <label for="q1_nosure">No recuerdo</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== -->
+            <!-- RAMA: SI LO VI       -->
+            <!-- ==================== -->
+
+            <!-- P2: Razon principal -->
+            <div class="card hidden" id="q2-card">
+                <h2><span class="q-number">2</span> Cual fue la razon principal por la que decidiste no pagar con el QR? <span class="required">*</span></h2>
+                <p class="desc">Cuentanos con tus propias palabras.</p>
+                <textarea id="q2"></textarea>
+            </div>
+
+            <!-- Likert section -->
+            <div class="hidden" id="likert-section">
+                <div class="section-divider">Indica que tan de acuerdo estas con cada frase</div>
+
+                <div class="card">
+                    <h2><span class="q-number">3</span> No tengo cuenta en BBVA</h2>
+                    <div class="likert-container">
+                        <div class="likert-labels"><span>Muy en desacuerdo</span><span>Muy de acuerdo</span></div>
+                        <div class="likert-options">
+                            <div class="radio-option"><input type="radio" id="q3_1" name="q3" value="1"><label for="q3_1">1</label></div>
+                            <div class="radio-option"><input type="radio" id="q3_2" name="q3" value="2"><label for="q3_2">2</label></div>
+                            <div class="radio-option"><input type="radio" id="q3_3" name="q3" value="3"><label for="q3_3">3</label></div>
+                            <div class="radio-option"><input type="radio" id="q3_4" name="q3" value="4"><label for="q3_4">4</label></div>
+                            <div class="radio-option"><input type="radio" id="q3_5" name="q3" value="5"><label for="q3_5">5</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2><span class="q-number">4</span> Me parecio complicado el proceso del QR</h2>
+                    <div class="likert-container">
+                        <div class="likert-labels"><span>Muy en desacuerdo</span><span>Muy de acuerdo</span></div>
+                        <div class="likert-options">
+                            <div class="radio-option"><input type="radio" id="q4_1" name="q4" value="1"><label for="q4_1">1</label></div>
+                            <div class="radio-option"><input type="radio" id="q4_2" name="q4" value="2"><label for="q4_2">2</label></div>
+                            <div class="radio-option"><input type="radio" id="q4_3" name="q4" value="3"><label for="q4_3">3</label></div>
+                            <div class="radio-option"><input type="radio" id="q4_4" name="q4" value="4"><label for="q4_4">4</label></div>
+                            <div class="radio-option"><input type="radio" id="q4_5" name="q4" value="5"><label for="q4_5">5</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2><span class="q-number">5</span> No estaba seguro de que el pago se registrara correctamente</h2>
+                    <div class="likert-container">
+                        <div class="likert-labels"><span>Muy en desacuerdo</span><span>Muy de acuerdo</span></div>
+                        <div class="likert-options">
+                            <div class="radio-option"><input type="radio" id="q5_1" name="q5" value="1"><label for="q5_1">1</label></div>
+                            <div class="radio-option"><input type="radio" id="q5_2" name="q5" value="2"><label for="q5_2">2</label></div>
+                            <div class="radio-option"><input type="radio" id="q5_3" name="q5" value="3"><label for="q5_3">3</label></div>
+                            <div class="radio-option"><input type="radio" id="q5_4" name="q5" value="4"><label for="q5_4">4</label></div>
+                            <div class="radio-option"><input type="radio" id="q5_5" name="q5" value="5"><label for="q5_5">5</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2><span class="q-number">6</span> Prefiero pagar por Yape porque ya lo conozco</h2>
+                    <div class="likert-container">
+                        <div class="likert-labels"><span>Muy en desacuerdo</span><span>Muy de acuerdo</span></div>
+                        <div class="likert-options">
+                            <div class="radio-option"><input type="radio" id="q6_1" name="q6" value="1"><label for="q6_1">1</label></div>
+                            <div class="radio-option"><input type="radio" id="q6_2" name="q6" value="2"><label for="q6_2">2</label></div>
+                            <div class="radio-option"><input type="radio" id="q6_3" name="q6" value="3"><label for="q6_3">3</label></div>
+                            <div class="radio-option"><input type="radio" id="q6_4" name="q6" value="4"><label for="q6_4">4</label></div>
+                            <div class="radio-option"><input type="radio" id="q6_5" name="q6" value="5"><label for="q6_5">5</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2><span class="q-number">7</span> Me preocupaba que me cobraran algo adicional</h2>
+                    <div class="likert-container">
+                        <div class="likert-labels"><span>Muy en desacuerdo</span><span>Muy de acuerdo</span></div>
+                        <div class="likert-options">
+                            <div class="radio-option"><input type="radio" id="q7_1" name="q7" value="1"><label for="q7_1">1</label></div>
+                            <div class="radio-option"><input type="radio" id="q7_2" name="q7" value="2"><label for="q7_2">2</label></div>
+                            <div class="radio-option"><input type="radio" id="q7_3" name="q7" value="3"><label for="q7_3">3</label></div>
+                            <div class="radio-option"><input type="radio" id="q7_4" name="q7" value="4"><label for="q7_4">4</label></div>
+                            <div class="radio-option"><input type="radio" id="q7_5" name="q7" value="5"><label for="q7_5">5</label></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- P8: Percepcion (rama SI) -->
+            <div class="card hidden" id="q8-card">
+                <h2><span class="q-number">8</span> Como percibes el uso de QR para pagar tus cuotas?</h2>
+                <p class="desc">Dejanos tu comentario, opinion o sugerencia sobre esta tecnologia.</p>
+                <textarea id="q8"></textarea>
+            </div>
+
+            <!-- ========================= -->
+            <!-- RAMA: NO LO VI / NO RECUERDO -->
+            <!-- ========================= -->
+
+            <div class="hidden" id="branch-no-section">
+                <div class="card">
+                    <h2><span class="q-number">2</span> Como pagaste tu cuota este mes? <span class="required">*</span></h2>
+                    <div class="radio-group" style="flex-wrap: wrap;">
+                        <div class="radio-option" style="min-width: calc(50% - 6px);">
+                            <input type="radio" id="qn2_yape" name="qn2_como_pago" value="Yape" onchange="updateProgress()">
+                            <label for="qn2_yape">Yape</label>
+                        </div>
+                        <div class="radio-option" style="min-width: calc(50% - 6px);">
+                            <input type="radio" id="qn2_bcp" name="qn2_como_pago" value="BCP" onchange="updateProgress()">
+                            <label for="qn2_bcp">BCP</label>
+                        </div>
+                        <div class="radio-option" style="min-width: calc(50% - 6px);">
+                            <input type="radio" id="qn2_ibk" name="qn2_como_pago" value="Interbank" onchange="updateProgress()">
+                            <label for="qn2_ibk">Interbank</label>
+                        </div>
+                        <div class="radio-option" style="min-width: calc(50% - 6px);">
+                            <input type="radio" id="qn2_agente" name="qn2_como_pago" value="Agente/bodega" onchange="updateProgress()">
+                            <label for="qn2_agente">Agente/bodega</label>
+                        </div>
+                        <div class="radio-option" style="min-width: calc(50% - 6px);">
+                            <input type="radio" id="qn2_otro" name="qn2_como_pago" value="Otro" onchange="updateProgress()">
+                            <label for="qn2_otro">Otro</label>
+                        </div>
+                        <div class="radio-option" style="min-width: calc(50% - 6px);">
+                            <input type="radio" id="qn2_nopago" name="qn2_como_pago" value="Aun no he pagado" onchange="updateProgress()">
+                            <label for="qn2_nopago">Aun no he pagado</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2><span class="q-number">3</span> Por que crees que no viste la opcion del QR?</h2>
+                    <div class="radio-group" style="flex-wrap: wrap;">
+                        <div class="radio-option" style="min-width: 100%;">
+                            <input type="radio" id="qn3_rapido" name="qn3_por_que" value="Pague rapido y no me fije" onchange="updateProgress()">
+                            <label for="qn3_rapido">Pague rapido y no me fije en las opciones</label>
+                        </div>
+                        <div class="radio-option" style="min-width: 100%;">
+                            <input type="radio" id="qn3_directo" name="qn3_por_que" value="Fui directo a mi metodo de siempre" onchange="updateProgress()">
+                            <label for="qn3_directo">Fui directo a mi metodo de pago de siempre</label>
+                        </div>
+                        <div class="radio-option" style="min-width: 100%;">
+                            <input type="radio" id="qn3_noentro" name="qn3_por_que" value="No entre a la plataforma" onchange="updateProgress()">
+                            <label for="qn3_noentro">No entre a la plataforma de pago</label>
+                        </div>
+                        <div class="radio-option" style="min-width: 100%;">
+                            <input type="radio" id="qn3_nosabe" name="qn3_por_que" value="No sabia que habia una opcion nueva" onchange="updateProgress()">
+                            <label for="qn3_nosabe">No sabia que habia una opcion nueva</label>
+                        </div>
+                        <div class="radio-option" style="min-width: 100%;">
+                            <input type="radio" id="qn3_otro" name="qn3_por_que" value="Otra razon" onchange="updateProgress()">
+                            <label for="qn3_otro">Otra razon</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2><span class="q-number">4</span> Si supieras que puedes pagar tu cuota escaneando un QR desde tu celular, lo usarias?</h2>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="qn4_si" name="qn4_usaria" value="Si, lo probaria" onchange="updateProgress()">
+                            <label for="qn4_si">Si, lo probaria</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="qn4_talvez" name="qn4_usaria" value="Tal vez" onchange="updateProgress()">
+                            <label for="qn4_talvez">Tal vez</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="qn4_no" name="qn4_usaria" value="No, prefiero mi metodo actual" onchange="updateProgress()">
+                            <label for="qn4_no">No, prefiero mi metodo</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2><span class="q-number">5</span> Que te haria falta para animarte a probar el pago con QR?</h2>
+                    <textarea id="qn5"></textarea>
+                </div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- COMUNES (ambas ramas)      -->
+            <!-- ========================= -->
+
+            <!-- Percepcion general -->
+            <div class="card" id="q_comun_percepcion">
+                <h2><span class="q-number" id="q_perc_num">9</span> Como percibes el uso de QR para pagar tus cuotas?</h2>
+                <p class="desc">Dejanos tu comentario, opinion o sugerencia sobre esta tecnologia.</p>
+                <textarea id="q_percepcion_comun"></textarea>
+            </div>
+
+            <!-- Mejora -->
+            <div class="card" id="q_comun_mejora">
+                <h2><span class="q-number" id="q_mej_num">10</span> Tienes algun otro comentario o sugerencia para nosotros?</h2>
+                <textarea id="q_mejora_comun"></textarea>
+            </div>
+
+            <button class="submit-btn" id="submitBtn" onclick="submitForm()">Enviar encuesta</button>
+        </div>
+
+        <!-- Gracias -->
+        <div class="thanks" id="thanksArea">
+            <div class="check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#28a745" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="40" height="40"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <h2>Gracias por tu respuesta!</h2>
+            <p>Tu opinion nos ayuda a mejorar la experiencia de pago para todos nuestros clientes. Puedes cerrar esta ventana.</p>
+        </div>
+
+        <div class="footer">Tus respuestas son anonimas &bull; BaldeCash 2026</div>
+    </div>
+
+    <script>
+        let mode = '';
+
+        function startSurvey() {
+            document.getElementById('introArea').style.display = 'none';
+            document.getElementById('formArea').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function handleQ1() {
+            const val = document.querySelector('input[name="q1_vio_qr"]:checked').value;
+            mode = val === 'Si, lo vi' ? 'si' : 'no';
+
+            // Rama SI
+            document.getElementById('q2-card').classList.toggle('hidden', mode !== 'si');
+            document.getElementById('likert-section').classList.toggle('hidden', mode !== 'si');
+            document.getElementById('q8-card').classList.toggle('hidden', mode !== 'si');
+
+            // Rama NO
+            document.getElementById('branch-no-section').classList.toggle('hidden', mode !== 'no');
+
+            // Renumerar preguntas comunes
+            if (mode === 'si') {
+                document.getElementById('q_perc_num').textContent = '9';
+                document.getElementById('q_mej_num').textContent = '10';
+            } else {
+                document.getElementById('q_perc_num').textContent = '6';
+                document.getElementById('q_mej_num').textContent = '7';
+            }
+
+            updateProgress();
+        }
+
+        function updateProgress() {
+            let total, answered = 0;
+            // Q1 siempre
+            if (document.querySelector('input[name="q1_vio_qr"]:checked')) answered++;
+
+            if (mode === 'si') {
+                total = 10;
+                if (document.getElementById('q2').value.trim()) answered++;
+                ['q3','q4','q5','q6','q7'].forEach(n => { if (document.querySelector(`input[name="${n}"]:checked`)) answered++; });
+                if (document.getElementById('q8').value.trim()) answered++;
+            } else if (mode === 'no') {
+                total = 7;
+                if (document.querySelector('input[name="qn2_como_pago"]:checked')) answered++;
+                if (document.querySelector('input[name="qn3_por_que"]:checked')) answered++;
+                if (document.querySelector('input[name="qn4_usaria"]:checked')) answered++;
+                if (document.getElementById('qn5').value.trim()) answered++;
+            } else {
+                total = 1;
+            }
+            // Comunes
+            if (mode) {
+                if (document.getElementById('q_percepcion_comun').value.trim()) answered++;
+                if (document.getElementById('q_mejora_comun').value.trim()) answered++;
+            }
+
+            document.getElementById('progressBar').style.width = Math.round(answered / total * 100) + '%';
+        }
+
+        document.querySelectorAll('input, textarea').forEach(el => {
+            el.addEventListener('change', updateProgress);
+            el.addEventListener('input', updateProgress);
+        });
+
+        function submitForm() {
+            if (!document.querySelector('input[name="q1_vio_qr"]:checked')) {
+                alert('Por favor responde la pregunta 1');
+                return;
+            }
+            if (mode === 'si' && !document.getElementById('q2').value.trim()) {
+                alert('Por favor responde la pregunta 2');
+                return;
+            }
+            if (mode === 'no' && !document.querySelector('input[name="qn2_como_pago"]:checked')) {
+                alert('Por favor indica como pagaste tu cuota');
+                return;
+            }
+
+            const data = {
+                timestamp: new Date().toISOString(),
+                rama: mode,
+                q1_vio_qr: document.querySelector('input[name="q1_vio_qr"]:checked').value
+            };
+
+            if (mode === 'si') {
+                data.q2_razon = document.getElementById('q2').value.trim();
+                data.q3_sin_cuenta = (document.querySelector('input[name="q3"]:checked') || {}).value || '';
+                data.q4_complicado = (document.querySelector('input[name="q4"]:checked') || {}).value || '';
+                data.q5_confianza = (document.querySelector('input[name="q5"]:checked') || {}).value || '';
+                data.q6_habito = (document.querySelector('input[name="q6"]:checked') || {}).value || '';
+                data.q7_costo = (document.querySelector('input[name="q7"]:checked') || {}).value || '';
+                data.q8_percepcion_qr = document.getElementById('q8').value.trim();
+            } else {
+                data.qn2_como_pago = (document.querySelector('input[name="qn2_como_pago"]:checked') || {}).value || '';
+                data.qn3_por_que_no_vio = (document.querySelector('input[name="qn3_por_que"]:checked') || {}).value || '';
+                data.qn4_usaria_qr = (document.querySelector('input[name="qn4_usaria"]:checked') || {}).value || '';
+                data.qn5_que_falta = document.getElementById('qn5').value.trim();
+            }
+
+            data.percepcion_general = document.getElementById('q_percepcion_comun').value.trim();
+            data.comentario_final = document.getElementById('q_mejora_comun').value.trim();
+
+            // Guardar en localStorage
+            const responses = JSON.parse(localStorage.getItem('encuesta_qr') || '[]');
+            responses.push(data);
+            localStorage.setItem('encuesta_qr', JSON.stringify(responses));
+
+            // Mostrar gracias
+            document.getElementById('formArea').style.display = 'none';
+            document.getElementById('thanksArea').style.display = 'block';
+            document.getElementById('progressBar').style.width = '100%';
+
+            console.log('ENCUESTA_RESPONSE:', JSON.stringify(data));
+        }
+
+        // Para descargar respuestas: abrir consola (F12) y ejecutar downloadResponses()
+        function downloadResponses() {
+            const data = JSON.parse(localStorage.getItem('encuesta_qr') || '[]');
+            if (!data.length) { alert('No hay respuestas'); return; }
+            const allKeys = new Set();
+            data.forEach(r => Object.keys(r).forEach(k => allKeys.add(k)));
+            const headers = [...allKeys];
+            const csv = [headers.join(','), ...data.map(r => headers.map(h => '"' + (r[h] || '').replace(/"/g, '""') + '"').join(','))].join('\n');
+            const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'encuesta_qr_respuestas.csv';
+            a.click();
+        }
+    </script>
+</body>
+</html>
