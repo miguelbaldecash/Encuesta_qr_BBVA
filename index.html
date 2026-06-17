@@ -54,8 +54,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Tu opinion sobre nuestra nueva forma de pago</h1>
-            <p>Encuesta sobre el nuevo metodo de pago con QR BBVA</p>
+            <h1>Tu opini&oacute;n sobre nuestra nueva forma de pago</h1>
+            <p>Encuesta sobre el nuevo m&eacute;todo de pago con QR BBVA</p>
             <div class="time">BaldeCash &bull; Junio 2026</div>
         </div>
 
@@ -63,9 +63,9 @@
         <div id="introArea">
             <div class="card" style="padding:28px;">
                 <p style="font-size:15px; color:#333; line-height:1.7; margin-bottom:16px;">Hola,</p>
-                <p style="font-size:15px; color:#333; line-height:1.7; margin-bottom:16px;">Este mes hemos lanzado una <strong>nueva forma de pagar tus cuotas: pago con QR de BBVA</strong>. Ahora puedes pagar escaneando un codigo QR directamente desde tu celular, sin necesidad de ir a un agente o usar otra aplicacion.</p>
-                <p style="font-size:15px; color:#333; line-height:1.7; margin-bottom:16px;">Vemos que <strong>aun no has usado este metodo de pago</strong> y nos gustaria conocer tu opinion para seguir mejorando el servicio que te ofrecemos.</p>
-                <p style="font-size:15px; color:#333; line-height:1.7; margin-bottom:24px;">Esta encuesta es <strong>anonima</strong> y toma menos de <strong>2 minutos</strong>. Tu respuesta es muy importante para nosotros.</p>
+                <p style="font-size:15px; color:#333; line-height:1.7; margin-bottom:16px;">Este mes hemos lanzado una <strong>nueva forma de pagar tus cuotas: pago con QR de BBVA</strong>. Ahora puedes pagar escaneando un c&oacute;digo QR directamente desde tu celular, sin necesidad de ir a un agente o usar otra aplicaci&oacute;n.</p>
+                <p style="font-size:15px; color:#333; line-height:1.7; margin-bottom:16px;">Vemos que <strong>a&uacute;n no has usado este m&eacute;todo de pago</strong> y nos gustar&iacute;a conocer tu opini&oacute;n para seguir mejorando el servicio que te ofrecemos.</p>
+                <p style="font-size:15px; color:#333; line-height:1.7; margin-bottom:24px;">Esta encuesta es <strong>an&oacute;nima</strong> y toma menos de <strong>2 minutos</strong>. Tu respuesta es muy importante para nosotros.</p>
                 <button class="submit-btn" onclick="startSurvey()">Comenzar encuesta</button>
             </div>
         </div>
@@ -74,11 +74,11 @@
         <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
             <!-- P1: Filtro -->
             <div class="card" id="q1-card">
-                <h2><span class="q-number">1</span> Cuando entraste a pagar tu cuota, viste la opcion de pagar con QR BBVA? <span class="required">*</span></h2>
+                <h2><span class="q-number">1</span> Cuando entraste a pagar tu cuota, &iquest;viste la opci&oacute;n de pagar con QR BBVA? <span class="required">*</span></h2>
                 <div class="radio-group">
                     <div class="radio-option">
                         <input type="radio" id="q1_si" name="q1_vio_qr" value="Si, lo vi" onchange="handleQ1()">
-                        <label for="q1_si">Si, lo vi</label>
+                        <label for="q1_si">S&iacute;, lo vi</label>
                     </div>
                     <div class="radio-option">
                         <input type="radio" id="q1_no" name="q1_vio_qr" value="No lo vi" onchange="handleQ1()">
@@ -97,14 +97,14 @@
 
             <!-- P2: Razon principal -->
             <div class="card hidden" id="q2-card">
-                <h2><span class="q-number">2</span> Cual fue la razon principal por la que decidiste no pagar con el QR? <span class="required">*</span></h2>
-                <p class="desc">Cuentanos con tus propias palabras.</p>
+                <h2><span class="q-number">2</span> &iquest;Cu&aacute;l fue la raz&oacute;n principal por la que decidiste no pagar con el QR? <span class="required">*</span></h2>
+                <p class="desc">Cu&eacute;ntanos con tus propias palabras.</p>
                 <textarea id="q2"></textarea>
             </div>
 
             <!-- Likert section -->
             <div class="hidden" id="likert-section">
-                <div class="section-divider">Indica que tan de acuerdo estas con cada frase</div>
+                <div class="section-divider">Indica qu&eacute; tan de acuerdo est&aacute;s con cada frase</div>
 
                 <div class="card">
                     <h2><span class="q-number">3</span> No tengo cuenta en BBVA</h2>
@@ -121,7 +121,7 @@
                 </div>
 
                 <div class="card">
-                    <h2><span class="q-number">4</span> Me parecio complicado el proceso del QR</h2>
+                    <h2><span class="q-number">4</span> Me pareci&oacute; complicado el proceso del QR</h2>
                     <div class="likert-container">
                         <div class="likert-labels"><span>Muy en desacuerdo</span><span>Muy de acuerdo</span></div>
                         <div class="likert-options">
@@ -135,7 +135,7 @@
                 </div>
 
                 <div class="card">
-                    <h2><span class="q-number">5</span> No estaba seguro de que el pago se registrara correctamente</h2>
+                    <h2><span class="q-number">5</span> No estaba seguro/a de que el pago se registrara correctamente</h2>
                     <div class="likert-container">
                         <div class="likert-labels"><span>Muy en desacuerdo</span><span>Muy de acuerdo</span></div>
                         <div class="likert-options">
@@ -163,7 +163,7 @@
                 </div>
 
                 <div class="card">
-                    <h2><span class="q-number">7</span> Me preocupaba que me cobraran algo adicional</h2>
+                    <h2><span class="q-number">7</span> Me preocupaba que me cobrar&aacute;n algo adicional</h2>
                     <div class="likert-container">
                         <div class="likert-labels"><span>Muy en desacuerdo</span><span>Muy de acuerdo</span></div>
                         <div class="likert-options">
@@ -179,8 +179,8 @@
 
             <!-- P8: Percepcion (rama SI) -->
             <div class="card hidden" id="q8-card">
-                <h2><span class="q-number">8</span> Como percibes el uso de QR para pagar tus cuotas?</h2>
-                <p class="desc">Dejanos tu comentario, opinion o sugerencia sobre esta tecnologia.</p>
+                <h2><span class="q-number">8</span> &iquest;C&oacute;mo percibes el uso de QR para pagar tus cuotas?</h2>
+                <p class="desc">D&eacute;janos tu comentario, opini&oacute;n o sugerencia sobre esta tecnolog&iacute;a.</p>
                 <textarea id="q8"></textarea>
             </div>
 
@@ -190,7 +190,7 @@
 
             <div class="hidden" id="branch-no-section">
                 <div class="card">
-                    <h2><span class="q-number">2</span> Como pagaste tu cuota este mes? <span class="required">*</span></h2>
+                    <h2><span class="q-number">2</span> &iquest;C&oacute;mo pagaste tu cuota este mes? <span class="required">*</span></h2>
                     <div class="radio-group" style="flex-wrap: wrap;">
                         <div class="radio-option" style="min-width: calc(50% - 6px);">
                             <input type="radio" id="qn2_yape" name="qn2_como_pago" value="Yape" onchange="updateProgress()">
@@ -214,43 +214,43 @@
                         </div>
                         <div class="radio-option" style="min-width: calc(50% - 6px);">
                             <input type="radio" id="qn2_nopago" name="qn2_como_pago" value="Aun no he pagado" onchange="updateProgress()">
-                            <label for="qn2_nopago">Aun no he pagado</label>
+                            <label for="qn2_nopago">A&uacute;n no he pagado</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="card">
-                    <h2><span class="q-number">3</span> Por que crees que no viste la opcion del QR?</h2>
+                    <h2><span class="q-number">3</span> &iquest;Por qu&eacute; crees que no viste la opci&oacute;n del QR?</h2>
                     <div class="radio-group" style="flex-wrap: wrap;">
                         <div class="radio-option" style="min-width: 100%;">
                             <input type="radio" id="qn3_rapido" name="qn3_por_que" value="Pague rapido y no me fije" onchange="updateProgress()">
-                            <label for="qn3_rapido">Pague rapido y no me fije en las opciones</label>
+                            <label for="qn3_rapido">Pagu&eacute; r&aacute;pido y no me fij&eacute; en las opciones</label>
                         </div>
                         <div class="radio-option" style="min-width: 100%;">
                             <input type="radio" id="qn3_directo" name="qn3_por_que" value="Fui directo a mi metodo de siempre" onchange="updateProgress()">
-                            <label for="qn3_directo">Fui directo a mi metodo de pago de siempre</label>
+                            <label for="qn3_directo">Fui directo a mi m&eacute;todo de pago de siempre</label>
                         </div>
                         <div class="radio-option" style="min-width: 100%;">
                             <input type="radio" id="qn3_noentro" name="qn3_por_que" value="No entre a la plataforma" onchange="updateProgress()">
-                            <label for="qn3_noentro">No entre a la plataforma de pago</label>
+                            <label for="qn3_noentro">No entr&eacute; a la plataforma de pago</label>
                         </div>
                         <div class="radio-option" style="min-width: 100%;">
                             <input type="radio" id="qn3_nosabe" name="qn3_por_que" value="No sabia que habia una opcion nueva" onchange="updateProgress()">
-                            <label for="qn3_nosabe">No sabia que habia una opcion nueva</label>
+                            <label for="qn3_nosabe">No sab&iacute;a que hab&iacute;a una opci&oacute;n nueva</label>
                         </div>
                         <div class="radio-option" style="min-width: 100%;">
                             <input type="radio" id="qn3_otro" name="qn3_por_que" value="Otra razon" onchange="updateProgress()">
-                            <label for="qn3_otro">Otra razon</label>
+                            <label for="qn3_otro">Otra raz&oacute;n</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="card">
-                    <h2><span class="q-number">4</span> Si supieras que puedes pagar tu cuota escaneando un QR desde tu celular, lo usarias?</h2>
+                    <h2><span class="q-number">4</span> Si supieras que puedes pagar tu cuota escaneando un QR desde tu celular, &iquest;lo usar&iacute;as?</h2>
                     <div class="radio-group">
                         <div class="radio-option">
                             <input type="radio" id="qn4_si" name="qn4_usaria" value="Si, lo probaria" onchange="updateProgress()">
-                            <label for="qn4_si">Si, lo probaria</label>
+                            <label for="qn4_si">S&iacute;, lo probar&iacute;a</label>
                         </div>
                         <div class="radio-option">
                             <input type="radio" id="qn4_talvez" name="qn4_usaria" value="Tal vez" onchange="updateProgress()">
@@ -258,13 +258,13 @@
                         </div>
                         <div class="radio-option">
                             <input type="radio" id="qn4_no" name="qn4_usaria" value="No, prefiero mi metodo actual" onchange="updateProgress()">
-                            <label for="qn4_no">No, prefiero mi metodo</label>
+                            <label for="qn4_no">No, prefiero mi m&eacute;todo</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="card">
-                    <h2><span class="q-number">5</span> Que te haria falta para animarte a probar el pago con QR?</h2>
+                    <h2><span class="q-number">5</span> &iquest;Qu&eacute; te har&iacute;a falta para animarte a probar el pago con QR?</h2>
                     <textarea id="qn5"></textarea>
                 </div>
             </div>
@@ -275,14 +275,14 @@
 
             <!-- Percepcion general -->
             <div class="card" id="q_comun_percepcion">
-                <h2><span class="q-number" id="q_perc_num">9</span> Como percibes el uso de QR para pagar tus cuotas?</h2>
-                <p class="desc">Dejanos tu comentario, opinion o sugerencia sobre esta tecnologia.</p>
+                <h2><span class="q-number" id="q_perc_num">9</span> &iquest;C&oacute;mo percibes el uso de QR para pagar tus cuotas?</h2>
+                <p class="desc">D&eacute;janos tu comentario, opini&oacute;n o sugerencia sobre esta tecnolog&iacute;a.</p>
                 <textarea id="q_percepcion_comun"></textarea>
             </div>
 
             <!-- Mejora -->
             <div class="card" id="q_comun_mejora">
-                <h2><span class="q-number" id="q_mej_num">10</span> Tienes algun otro comentario o sugerencia para nosotros?</h2>
+                <h2><span class="q-number" id="q_mej_num">10</span> &iquest;Tienes alg&uacute;n otro comentario o sugerencia para nosotros?</h2>
                 <textarea id="q_mejora_comun"></textarea>
             </div>
 
@@ -294,11 +294,11 @@
             <div class="check">
                 <svg viewBox="0 0 24 24" fill="none" stroke="#28a745" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="40" height="40"><polyline points="20 6 9 17 4 12"></polyline></svg>
             </div>
-            <h2>Gracias por tu respuesta!</h2>
-            <p>Tu opinion nos ayuda a mejorar la experiencia de pago para todos nuestros clientes. Puedes cerrar esta ventana.</p>
+            <h2>&iexcl;Gracias por tu respuesta!</h2>
+            <p>Tu opini&oacute;n nos ayuda a mejorar la experiencia de pago para todos nuestros clientes. Puedes cerrar esta ventana.</p>
         </div>
 
-        <div class="footer">Tus respuestas son anonimas &bull; BaldeCash 2026</div>
+        <div class="footer">Tus respuestas son an&oacute;nimas &bull; BaldeCash 2026</div>
     </div>
 
     <script>
@@ -369,15 +369,15 @@
 
         function submitForm() {
             if (!document.querySelector('input[name="q1_vio_qr"]:checked')) {
-                alert('Por favor responde la pregunta 1');
+                alert('Por favor, responde la pregunta 1');
                 return;
             }
             if (mode === 'si' && !document.getElementById('q2').value.trim()) {
-                alert('Por favor responde la pregunta 2');
+                alert('Por favor, responde la pregunta 2');
                 return;
             }
             if (mode === 'no' && !document.querySelector('input[name="qn2_como_pago"]:checked')) {
-                alert('Por favor indica como pagaste tu cuota');
+                alert('Por favor, indica c\u00f3mo pagaste tu cuota');
                 return;
             }
 
