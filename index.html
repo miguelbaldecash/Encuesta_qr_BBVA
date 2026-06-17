@@ -8,14 +8,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Asap:wght@400;500;600;700&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Asap', system-ui, sans-serif; background: #f0f2f5; color: #232323; min-height: 100vh; }
+        body { font-family: 'Asap', system-ui, sans-serif; background: #0d0f1a; color: #232323; min-height: 100vh; position: relative; overflow-x: hidden; }
+        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at 20% 0%, rgba(70,84,205,0.25) 0%, transparent 50%), radial-gradient(ellipse at 80% 100%, rgba(3,219,208,0.2) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(70,84,205,0.08) 0%, transparent 70%); z-index: 0; animation: bgPulse 8s ease-in-out infinite; }
+        @keyframes bgPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
+        .container { position: relative; z-index: 1; }
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #4654cd, #31359C); color: white; padding: 32px 24px; border-radius: 16px; margin-bottom: 24px; }
+        .header { background: linear-gradient(135deg, #4654cd 0%, #31359C 50%, #1a1f5e 100%); color: white; padding: 36px 24px; border-radius: 20px; margin-bottom: 24px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 12px 40px rgba(70,84,205,0.4); }
+        .header::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 30% 70%, rgba(3,219,208,0.2) 0%, transparent 40%), radial-gradient(circle at 70% 30%, rgba(255,255,255,0.1) 0%, transparent 35%); animation: headerFloat 10s ease-in-out infinite; pointer-events: none; }
+        .header::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 50%); pointer-events: none; }
+        @keyframes headerFloat { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(3%,-2%) scale(1.02); } }
+        .header > * { position: relative; z-index: 1; }
         .header .logo { display: block; margin: 0 auto 16px; height: 40px; }
         .header h1 { font-family: 'Baloo 2', cursive; font-size: 22px; font-weight: 800; margin-bottom: 12px; text-align: center; }
         .header p { font-size: 14px; opacity: 0.9; line-height: 1.6; margin-bottom: 8px; text-align: center; }
         .header .time { font-size: 12px; opacity: 0.6; margin-top: 12px; text-align: center; }
-        .card { background: white; border-radius: 12px; padding: 24px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .card { background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.3); border-radius: 16px; padding: 24px; margin-bottom: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); transition: transform 0.2s, box-shadow 0.2s; }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.15); }
         .card h2 { font-family: 'Asap', sans-serif; font-size: 16px; font-weight: 600; color: #4654cd; margin-bottom: 6px; display: flex; align-items: flex-start; gap: 8px; }
         .required { color: #BF3A3C; font-size: 12px; }
         .card p.desc { font-size: 13px; color: #666; margin-bottom: 16px; line-height: 1.4; }
@@ -23,42 +31,61 @@
         .radio-group { display: flex; gap: 12px; margin-top: 8px; }
         .radio-option { flex: 1; }
         .radio-option input { display: none; }
-        .radio-option label { display: block; padding: 14px; text-align: center; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-        .radio-option input:checked + label { border-color: #4654cd; background: #D6DCED; color: #31359C; }
-        .radio-option label:hover { border-color: #98A9DF; }
-        textarea { width: 100%; min-height: 80px; padding: 14px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 14px; font-family: inherit; resize: vertical; transition: border-color 0.2s; }
-        textarea:focus { outline: none; border-color: #4654cd; }
-        .likert-container { margin-top: 12px; }
+        .radio-option label { display: block; padding: 14px; text-align: center; border: 2px solid rgba(70,84,205,0.15); border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.25s; background: rgba(255,255,255,0.6); }
+        .radio-option input:checked + label { border-color: #4654cd; background: linear-gradient(135deg, rgba(70,84,205,0.12), rgba(3,219,208,0.1)); color: #31359C; box-shadow: 0 4px 16px rgba(70,84,205,0.15); transform: scale(1.02); }
+        .radio-option label:hover { border-color: #4654cd; background: rgba(70,84,205,0.05); transform: translateY(-1px); }
+        textarea { width: 100%; min-height: 80px; padding: 14px; border: 2px solid rgba(70,84,205,0.15); border-radius: 12px; font-size: 14px; font-family: inherit; resize: vertical; transition: all 0.25s; background: rgba(255,255,255,0.6); }
+        textarea:focus { outline: none; border-color: #4654cd; box-shadow: 0 0 0 3px rgba(70,84,205,0.1); background: white; }
+        .likert-desktop { margin-top: 12px; }
         .likert-labels { display: flex; justify-content: space-between; font-size: 11px; color: #888; margin-bottom: 8px; padding: 0 4px; }
         .likert-options { display: flex; gap: 8px; }
         .likert-options .radio-option { flex: 1; }
         .likert-options .radio-option label { padding: 12px 4px; font-size: 16px; }
-        .section-divider { text-align: center; color: #aaa; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin: 8px 0 16px; }
-        .submit-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, #03dbd0, #02C3BA); color: #232323; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; transition: transform 0.1s, box-shadow 0.2s; box-shadow: 0 4px 12px rgba(3,219,208,0.3); }
-        .submit-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(3,219,208,0.4); }
-        .submit-btn:active { transform: translateY(0); }
-        .progress { height: 4px; background: #e0e0e0; border-radius: 2px; margin-bottom: 24px; overflow: hidden; }
-        .progress-bar { height: 100%; background: linear-gradient(90deg, #4654cd, #03dbd0); border-radius: 2px; transition: width 0.3s; width: 0%; }
-        .footer { text-align: center; padding: 20px; font-size: 11px; color: #aaa; }
-        .footer img { height: 24px; margin-bottom: 6px; display: block; margin: 0 auto 6px; }
+        .likert-mobile { display: none; width: 100%; padding: 14px 16px; border: 2px solid rgba(70,84,205,0.15); border-radius: 12px; font-size: 15px; font-family: inherit; background: rgba(255,255,255,0.6); color: #232323; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234654cd' stroke-width='2' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; cursor: pointer; transition: all 0.25s; margin-top: 12px; }
+        .likert-mobile:focus { outline: none; border-color: #4654cd; box-shadow: 0 0 0 3px rgba(70,84,205,0.1); background-color: white; }
+        .section-divider { text-align: center; color: rgba(255,255,255,0.5); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin: 8px 0 16px; }
+        .submit-btn { width: 100%; padding: 18px; background: linear-gradient(135deg, #03dbd0, #02C3BA); color: #1a1a2e; border: none; border-radius: 14px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.25s; box-shadow: 0 6px 24px rgba(3,219,208,0.35); letter-spacing: 0.3px; position: relative; overflow: hidden; }
+        .submit-btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent); transition: left 0.5s; }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(3,219,208,0.45); }
+        .submit-btn:hover::before { left: 100%; }
+        .submit-btn:active { transform: translateY(0); box-shadow: 0 4px 16px rgba(3,219,208,0.3); }
+        .progress { height: 5px; background: rgba(255,255,255,0.1); border-radius: 3px; margin-bottom: 24px; overflow: hidden; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, #4654cd, #03dbd0); border-radius: 3px; transition: width 0.5s ease; width: 0%; box-shadow: 0 0 12px rgba(3,219,208,0.4); }
+        .footer { text-align: center; padding: 20px; font-size: 11px; color: rgba(255,255,255,0.4); }
+        .footer img { height: 24px; margin-bottom: 6px; display: block; margin: 0 auto 6px; opacity: 0.5; }
         .hidden { display: none; }
-        .thanks { display: none; text-align: center; padding: 48px 32px; }
-        .thanks .check { width: 80px; height: 80px; background: #DEFBF9; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+        .thanks { display: none; text-align: center; padding: 48px 32px; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); border-radius: 20px; border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
+        .thanks .check { width: 80px; height: 80px; background: linear-gradient(135deg, rgba(3,219,208,0.15), rgba(70,84,205,0.1)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; animation: checkPop 0.5s ease; }
+        @keyframes checkPop { 0% { transform: scale(0); } 60% { transform: scale(1.2); } 100% { transform: scale(1); } }
         .thanks h2 { font-family: 'Baloo 2', cursive; font-size: 24px; color: #232323; margin-bottom: 12px; }
         .thanks p { font-size: 15px; color: #666; line-height: 1.6; }
-        @media (max-width: 480px) {
-            .container { padding: 12px; }
-            .header { padding: 24px 16px; }
-            .card { padding: 20px 16px; }
+        @media (max-width: 768px) {
+            .container { padding: 16px; }
+            .header { padding: 28px 20px; border-radius: 16px; }
+            .header h1 { font-size: 20px; }
+            .card { padding: 20px 18px; }
             .radio-group { flex-wrap: wrap; }
             .radio-option { min-width: calc(50% - 6px); }
+            .likert-desktop { display: none; }
+            .likert-mobile { display: block; }
+        }
+        @media (max-width: 400px) {
+            .container { padding: 10px; }
+            .header { padding: 24px 16px; }
+            .header h1 { font-size: 18px; }
+            .header .logo { height: 32px; }
+            .card { padding: 18px 14px; }
+            .card h2 { font-size: 15px; }
+            .radio-option { min-width: 100%; }
+            .radio-option label { padding: 12px; font-size: 13px; }
+            .submit-btn { padding: 16px; font-size: 15px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <img src="https://raw.githubusercontent.com/miguelbaldecash/Encuesta_qr_BBVA/main/logo-baldecash.png" alt="BaldeCash" class="logo">
+            <img src="logo-white.png" alt="BaldeCash" class="logo">
             <h1>Tu opini&oacute;n sobre nuestra nueva forma de pago</h1>
             <p>Encuesta sobre el nuevo m&eacute;todo de pago con QR BBVA</p>
             <div class="time">BaldeCash &bull; Junio 2026</div>
@@ -111,74 +138,114 @@
             <div class="hidden" id="likert-section">
                 <div class="section-divider">Indica qu&eacute; tan de acuerdo est&aacute;s con cada frase</div>
 
-                <div class="card">
+                <div class="card likert-card">
                     <h2><span class="q-number">3</span> No tengo cuenta en BBVA</h2>
-                    <div class="likert-container">
+                    <div class="likert-desktop">
                         <div class="likert-labels"><span>Muy en desacuerdo</span><span>Muy de acuerdo</span></div>
                         <div class="likert-options">
-                            <div class="radio-option"><input type="radio" id="q3_1" name="q3" value="1"><label for="q3_1">1</label></div>
-                            <div class="radio-option"><input type="radio" id="q3_2" name="q3" value="2"><label for="q3_2">2</label></div>
-                            <div class="radio-option"><input type="radio" id="q3_3" name="q3" value="3"><label for="q3_3">3</label></div>
-                            <div class="radio-option"><input type="radio" id="q3_4" name="q3" value="4"><label for="q3_4">4</label></div>
-                            <div class="radio-option"><input type="radio" id="q3_5" name="q3" value="5"><label for="q3_5">5</label></div>
+                            <div class="radio-option"><input type="radio" id="q3_1" name="q3" value="1" onchange="syncSelect(this)"><label for="q3_1">1</label></div>
+                            <div class="radio-option"><input type="radio" id="q3_2" name="q3" value="2" onchange="syncSelect(this)"><label for="q3_2">2</label></div>
+                            <div class="radio-option"><input type="radio" id="q3_3" name="q3" value="3" onchange="syncSelect(this)"><label for="q3_3">3</label></div>
+                            <div class="radio-option"><input type="radio" id="q3_4" name="q3" value="4" onchange="syncSelect(this)"><label for="q3_4">4</label></div>
+                            <div class="radio-option"><input type="radio" id="q3_5" name="q3" value="5" onchange="syncSelect(this)"><label for="q3_5">5</label></div>
                         </div>
                     </div>
+                    <select class="likert-mobile" data-name="q3" onchange="syncRadio(this)">
+                        <option value="">Selecciona...</option>
+                        <option value="1">1 - Muy en desacuerdo</option>
+                        <option value="2">2 - En desacuerdo</option>
+                        <option value="3">3 - Neutral</option>
+                        <option value="4">4 - De acuerdo</option>
+                        <option value="5">5 - Muy de acuerdo</option>
+                    </select>
                 </div>
 
-                <div class="card">
+                <div class="card likert-card">
                     <h2><span class="q-number">4</span> Me pareci&oacute; complicado el proceso del QR</h2>
-                    <div class="likert-container">
+                    <div class="likert-desktop">
                         <div class="likert-labels"><span>Muy en desacuerdo</span><span>Muy de acuerdo</span></div>
                         <div class="likert-options">
-                            <div class="radio-option"><input type="radio" id="q4_1" name="q4" value="1"><label for="q4_1">1</label></div>
-                            <div class="radio-option"><input type="radio" id="q4_2" name="q4" value="2"><label for="q4_2">2</label></div>
-                            <div class="radio-option"><input type="radio" id="q4_3" name="q4" value="3"><label for="q4_3">3</label></div>
-                            <div class="radio-option"><input type="radio" id="q4_4" name="q4" value="4"><label for="q4_4">4</label></div>
-                            <div class="radio-option"><input type="radio" id="q4_5" name="q4" value="5"><label for="q4_5">5</label></div>
+                            <div class="radio-option"><input type="radio" id="q4_1" name="q4" value="1" onchange="syncSelect(this)"><label for="q4_1">1</label></div>
+                            <div class="radio-option"><input type="radio" id="q4_2" name="q4" value="2" onchange="syncSelect(this)"><label for="q4_2">2</label></div>
+                            <div class="radio-option"><input type="radio" id="q4_3" name="q4" value="3" onchange="syncSelect(this)"><label for="q4_3">3</label></div>
+                            <div class="radio-option"><input type="radio" id="q4_4" name="q4" value="4" onchange="syncSelect(this)"><label for="q4_4">4</label></div>
+                            <div class="radio-option"><input type="radio" id="q4_5" name="q4" value="5" onchange="syncSelect(this)"><label for="q4_5">5</label></div>
                         </div>
                     </div>
+                    <select class="likert-mobile" data-name="q4" onchange="syncRadio(this)">
+                        <option value="">Selecciona...</option>
+                        <option value="1">1 - Muy en desacuerdo</option>
+                        <option value="2">2 - En desacuerdo</option>
+                        <option value="3">3 - Neutral</option>
+                        <option value="4">4 - De acuerdo</option>
+                        <option value="5">5 - Muy de acuerdo</option>
+                    </select>
                 </div>
 
-                <div class="card">
+                <div class="card likert-card">
                     <h2><span class="q-number">5</span> No estaba seguro/a de que el pago se registrara correctamente</h2>
-                    <div class="likert-container">
+                    <div class="likert-desktop">
                         <div class="likert-labels"><span>Muy en desacuerdo</span><span>Muy de acuerdo</span></div>
                         <div class="likert-options">
-                            <div class="radio-option"><input type="radio" id="q5_1" name="q5" value="1"><label for="q5_1">1</label></div>
-                            <div class="radio-option"><input type="radio" id="q5_2" name="q5" value="2"><label for="q5_2">2</label></div>
-                            <div class="radio-option"><input type="radio" id="q5_3" name="q5" value="3"><label for="q5_3">3</label></div>
-                            <div class="radio-option"><input type="radio" id="q5_4" name="q5" value="4"><label for="q5_4">4</label></div>
-                            <div class="radio-option"><input type="radio" id="q5_5" name="q5" value="5"><label for="q5_5">5</label></div>
+                            <div class="radio-option"><input type="radio" id="q5_1" name="q5" value="1" onchange="syncSelect(this)"><label for="q5_1">1</label></div>
+                            <div class="radio-option"><input type="radio" id="q5_2" name="q5" value="2" onchange="syncSelect(this)"><label for="q5_2">2</label></div>
+                            <div class="radio-option"><input type="radio" id="q5_3" name="q5" value="3" onchange="syncSelect(this)"><label for="q5_3">3</label></div>
+                            <div class="radio-option"><input type="radio" id="q5_4" name="q5" value="4" onchange="syncSelect(this)"><label for="q5_4">4</label></div>
+                            <div class="radio-option"><input type="radio" id="q5_5" name="q5" value="5" onchange="syncSelect(this)"><label for="q5_5">5</label></div>
                         </div>
                     </div>
+                    <select class="likert-mobile" data-name="q5" onchange="syncRadio(this)">
+                        <option value="">Selecciona...</option>
+                        <option value="1">1 - Muy en desacuerdo</option>
+                        <option value="2">2 - En desacuerdo</option>
+                        <option value="3">3 - Neutral</option>
+                        <option value="4">4 - De acuerdo</option>
+                        <option value="5">5 - Muy de acuerdo</option>
+                    </select>
                 </div>
 
-                <div class="card">
+                <div class="card likert-card">
                     <h2><span class="q-number">6</span> Prefiero pagar por Yape porque ya lo conozco</h2>
-                    <div class="likert-container">
+                    <div class="likert-desktop">
                         <div class="likert-labels"><span>Muy en desacuerdo</span><span>Muy de acuerdo</span></div>
                         <div class="likert-options">
-                            <div class="radio-option"><input type="radio" id="q6_1" name="q6" value="1"><label for="q6_1">1</label></div>
-                            <div class="radio-option"><input type="radio" id="q6_2" name="q6" value="2"><label for="q6_2">2</label></div>
-                            <div class="radio-option"><input type="radio" id="q6_3" name="q6" value="3"><label for="q6_3">3</label></div>
-                            <div class="radio-option"><input type="radio" id="q6_4" name="q6" value="4"><label for="q6_4">4</label></div>
-                            <div class="radio-option"><input type="radio" id="q6_5" name="q6" value="5"><label for="q6_5">5</label></div>
+                            <div class="radio-option"><input type="radio" id="q6_1" name="q6" value="1" onchange="syncSelect(this)"><label for="q6_1">1</label></div>
+                            <div class="radio-option"><input type="radio" id="q6_2" name="q6" value="2" onchange="syncSelect(this)"><label for="q6_2">2</label></div>
+                            <div class="radio-option"><input type="radio" id="q6_3" name="q6" value="3" onchange="syncSelect(this)"><label for="q6_3">3</label></div>
+                            <div class="radio-option"><input type="radio" id="q6_4" name="q6" value="4" onchange="syncSelect(this)"><label for="q6_4">4</label></div>
+                            <div class="radio-option"><input type="radio" id="q6_5" name="q6" value="5" onchange="syncSelect(this)"><label for="q6_5">5</label></div>
                         </div>
                     </div>
+                    <select class="likert-mobile" data-name="q6" onchange="syncRadio(this)">
+                        <option value="">Selecciona...</option>
+                        <option value="1">1 - Muy en desacuerdo</option>
+                        <option value="2">2 - En desacuerdo</option>
+                        <option value="3">3 - Neutral</option>
+                        <option value="4">4 - De acuerdo</option>
+                        <option value="5">5 - Muy de acuerdo</option>
+                    </select>
                 </div>
 
-                <div class="card">
+                <div class="card likert-card">
                     <h2><span class="q-number">7</span> Me preocupaba que me cobrar&aacute;n algo adicional</h2>
-                    <div class="likert-container">
+                    <div class="likert-desktop">
                         <div class="likert-labels"><span>Muy en desacuerdo</span><span>Muy de acuerdo</span></div>
                         <div class="likert-options">
-                            <div class="radio-option"><input type="radio" id="q7_1" name="q7" value="1"><label for="q7_1">1</label></div>
-                            <div class="radio-option"><input type="radio" id="q7_2" name="q7" value="2"><label for="q7_2">2</label></div>
-                            <div class="radio-option"><input type="radio" id="q7_3" name="q7" value="3"><label for="q7_3">3</label></div>
-                            <div class="radio-option"><input type="radio" id="q7_4" name="q7" value="4"><label for="q7_4">4</label></div>
-                            <div class="radio-option"><input type="radio" id="q7_5" name="q7" value="5"><label for="q7_5">5</label></div>
+                            <div class="radio-option"><input type="radio" id="q7_1" name="q7" value="1" onchange="syncSelect(this)"><label for="q7_1">1</label></div>
+                            <div class="radio-option"><input type="radio" id="q7_2" name="q7" value="2" onchange="syncSelect(this)"><label for="q7_2">2</label></div>
+                            <div class="radio-option"><input type="radio" id="q7_3" name="q7" value="3" onchange="syncSelect(this)"><label for="q7_3">3</label></div>
+                            <div class="radio-option"><input type="radio" id="q7_4" name="q7" value="4" onchange="syncSelect(this)"><label for="q7_4">4</label></div>
+                            <div class="radio-option"><input type="radio" id="q7_5" name="q7" value="5" onchange="syncSelect(this)"><label for="q7_5">5</label></div>
                         </div>
                     </div>
+                    <select class="likert-mobile" data-name="q7" onchange="syncRadio(this)">
+                        <option value="">Selecciona...</option>
+                        <option value="1">1 - Muy en desacuerdo</option>
+                        <option value="2">2 - En desacuerdo</option>
+                        <option value="3">3 - Neutral</option>
+                        <option value="4">4 - De acuerdo</option>
+                        <option value="5">5 - Muy de acuerdo</option>
+                    </select>
                 </div>
             </div>
 
@@ -304,13 +371,30 @@
         </div>
 
         <div class="footer">
-            <img src="https://raw.githubusercontent.com/miguelbaldecash/Encuesta_qr_BBVA/main/logo-baldecash.png" alt="BaldeCash">
+            <img src="logo-baldecash.png" alt="BaldeCash">
             Tus respuestas son an&oacute;nimas &bull; 2026
         </div>
     </div>
 
     <script>
         let mode = '';
+
+        function syncRadio(sel) {
+            const name = sel.dataset.name;
+            const val = sel.value;
+            if (val) {
+                const radio = document.querySelector(`input[name="${name}"][value="${val}"]`);
+                if (radio) radio.checked = true;
+            }
+            updateProgress();
+        }
+
+        function syncSelect(radio) {
+            const name = radio.name;
+            const sel = document.querySelector(`select[data-name="${name}"]`);
+            if (sel) sel.value = radio.value;
+            updateProgress();
+        }
 
         function startSurvey() {
             document.getElementById('introArea').style.display = 'none';
