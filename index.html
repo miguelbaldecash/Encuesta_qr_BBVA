@@ -378,6 +378,7 @@
 
     <script>
         let mode = '';
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzO7mWyDbD87xl6E9NwaVN3gcqXsMRBLwr9aNoQHAPk-2bTAq8ShbXOGhGkuxbumIC7wQ/exec';
 
         function syncRadio(sel) {
             const name = sel.dataset.name;
@@ -497,17 +498,31 @@
             data.percepcion_general = document.getElementById('q_percepcion_comun').value.trim();
             data.comentario_final = document.getElementById('q_mejora_comun').value.trim();
 
-            // Guardar en localStorage
-            const responses = JSON.parse(localStorage.getItem('encuesta_qr') || '[]');
-            responses.push(data);
-            localStorage.setItem('encuesta_qr', JSON.stringify(responses));
+            // Deshabilitar boton mientras envia
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.textContent = 'Enviando...';
 
-            // Mostrar gracias
-            document.getElementById('formArea').style.display = 'none';
-            document.getElementById('thanksArea').style.display = 'block';
-            document.getElementById('progressBar').style.width = '100%';
-
-            console.log('ENCUESTA_RESPONSE:', JSON.stringify(data));
+            // Enviar a Google Sheets
+            fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            }).then(() => {
+                // Mostrar gracias
+                document.getElementById('formArea').style.display = 'none';
+                document.getElementById('thanksArea').style.display = 'block';
+                document.getElementById('progressBar').style.width = '100%';
+            }).catch(() => {
+                // Fallback: guardar en localStorage si falla
+                const responses = JSON.parse(localStorage.getItem('encuesta_qr') || '[]');
+                responses.push(data);
+                localStorage.setItem('encuesta_qr', JSON.stringify(responses));
+                document.getElementById('formArea').style.display = 'none';
+                document.getElementById('thanksArea').style.display = 'block';
+                document.getElementById('progressBar').style.width = '100%';
+            });
         }
 
         // Para descargar respuestas: abrir consola (F12) y ejecutar downloadResponses()
