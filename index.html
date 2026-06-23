@@ -183,29 +183,7 @@
                 </div>
 
                 <div class="card likert-card">
-                    <h2><span class="q-number">5</span> Prefiero pagar por Yape porque ya lo conozco</h2>
-                    <div class="likert-desktop">
-                        <div class="likert-labels"><span>Muy en desacuerdo</span><span>Muy de acuerdo</span></div>
-                        <div class="likert-options">
-                            <div class="radio-option"><input type="radio" id="q6_1" name="q6" value="1" onchange="syncSelect(this)"><label for="q6_1">1</label></div>
-                            <div class="radio-option"><input type="radio" id="q6_2" name="q6" value="2" onchange="syncSelect(this)"><label for="q6_2">2</label></div>
-                            <div class="radio-option"><input type="radio" id="q6_3" name="q6" value="3" onchange="syncSelect(this)"><label for="q6_3">3</label></div>
-                            <div class="radio-option"><input type="radio" id="q6_4" name="q6" value="4" onchange="syncSelect(this)"><label for="q6_4">4</label></div>
-                            <div class="radio-option"><input type="radio" id="q6_5" name="q6" value="5" onchange="syncSelect(this)"><label for="q6_5">5</label></div>
-                        </div>
-                    </div>
-                    <select class="likert-mobile" data-name="q6" onchange="syncRadio(this)">
-                        <option value="">Selecciona...</option>
-                        <option value="1">1 - Muy en desacuerdo</option>
-                        <option value="2">2 - En desacuerdo</option>
-                        <option value="3">3 - Neutral</option>
-                        <option value="4">4 - De acuerdo</option>
-                        <option value="5">5 - Muy de acuerdo</option>
-                    </select>
-                </div>
-
-                <div class="card likert-card">
-                    <h2><span class="q-number">6</span> Me preocupaba que me cobrar&aacute;n algo adicional</h2>
+                    <h2><span class="q-number">5</span> Me preocupaba que me cobrar&aacute;n algo adicional</h2>
                     <div class="likert-desktop">
                         <div class="likert-labels"><span>Muy en desacuerdo</span><span>Muy de acuerdo</span></div>
                         <div class="likert-options">
@@ -350,7 +328,7 @@
 
     <script>
         let mode = '';
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwR6Q9J4FYzpGFVeS4Lyw4WNfSHzO0eiyz-X30a_8R1qYjvwjGpr77GV6QgnIFkR0VOYw/exec';
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzjrA6OpJFlmY3XJ63NwASennqZTbgoUx-a_DtQKYFmmCXmXDzNXa_3OlwG4qX1t4hpRA/exec';
 
         function syncRadio(sel) {
             const name = sel.dataset.name;
@@ -393,8 +371,8 @@
 
             // Renumerar preguntas comunes
             if (mode === 'si') {
-                document.getElementById('q_perc_num').textContent = '7';
-                document.getElementById('q_mej_num').textContent = '8';
+                document.getElementById('q_perc_num').textContent = '6';
+                document.getElementById('q_mej_num').textContent = '7';
             } else {
                 document.getElementById('q_perc_num').textContent = '6';
                 document.getElementById('q_mej_num').textContent = '7';
@@ -409,9 +387,9 @@
             if (document.querySelector('input[name="q1_vio_qr"]:checked')) answered++;
 
             if (mode === 'si') {
-                total = 8;
+                total = 7;
                 if (document.getElementById('q2').value.trim()) answered++;
-                ['q4','q5','q6','q7'].forEach(n => { if (document.querySelector(`input[name="${n}"]:checked`)) answered++; });
+                ['q4','q5','q7'].forEach(n => { if (document.querySelector(`input[name="${n}"]:checked`)) answered++; });
             } else if (mode === 'no') {
                 total = 7;
                 if (document.querySelector('input[name="qn2_como_pago"]:checked')) answered++;
@@ -459,8 +437,7 @@
                 data.q2_razon = document.getElementById('q2').value.trim();
                 data.q3_complicado = (document.querySelector('input[name="q4"]:checked') || {}).value || '';
                 data.q4_confianza = (document.querySelector('input[name="q5"]:checked') || {}).value || '';
-                data.q5_habito = (document.querySelector('input[name="q6"]:checked') || {}).value || '';
-                data.q6_costo = (document.querySelector('input[name="q7"]:checked') || {}).value || '';
+                data.q5_costo = (document.querySelector('input[name="q7"]:checked') || {}).value || '';
             } else {
                 data.qn2_como_pago = (document.querySelector('input[name="qn2_como_pago"]:checked') || {}).value || '';
                 data.qn3_por_que_no_vio = (document.querySelector('input[name="qn3_por_que"]:checked') || {}).value || '';
